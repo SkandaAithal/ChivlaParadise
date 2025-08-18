@@ -339,3 +339,22 @@
 .swiper-smooth .swiper-slide {
   animation: slideFadeIn 0.8s ease-out;
 }
+
+.layout {
+  margin: auto;
+  padding-top: 6rem;
+  padding-inline: 1rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .layout {
+    padding-inline: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .layout {
+    padding-inline: 6rem;
+  }
+}
