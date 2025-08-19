@@ -4,27 +4,27 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<
-    "spaces" | "experiences" | "gallery"
-  >("spaces");
+    "about" | "experiences" | "gallery"
+  >("about");
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
   const navigationItems = useMemo(
     () => [
-      { title: "Spaces", href: "/#spaces", sectionId: "spaces" as const },
+      { title: "Our story", href: "/#about", sectionId: "about" as const },
+      { title: "Gallery", href: "/#gallery", sectionId: "gallery" as const },
+
       {
         title: "Experiences",
         href: "/#experiences",
         sectionId: "experiences" as const,
       },
-      { title: "Gallery", href: "/#gallery", sectionId: "gallery" as const },
       { title: "Contact Us", href: "/contact" },
     ],
     []
@@ -87,7 +87,7 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections: Array<typeof activeSection> = [
-        "spaces",
+        "about",
         "experiences",
         "gallery",
       ];
@@ -192,7 +192,7 @@ const Header = () => {
         exit={{ opacity: 0, x: -20 }}
         transition={{
           duration: 0.4,
-          delay: 0.4 + index * 0.08, // Start after container + content fade, then stagger
+          delay: 0.4 + index * 0.08,
           ease: "easeOut",
         }}
         className="relative"

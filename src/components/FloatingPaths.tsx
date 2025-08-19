@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-export function FloatingPaths({ position }: { position: number }) {
+export function FloatingPaths({
+  position,
+  className = "text-yellow-500",
+}: {
+  position: number;
+  className?: string;
+}) {
   const paths = Array.from({ length: 36 }, (_, i) => ({
     id: i,
     d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
@@ -19,7 +26,7 @@ export function FloatingPaths({ position }: { position: number }) {
   return (
     <div className="absolute inset-0">
       <svg
-        className="w-full h-full text-yellow-500"
+        className={cn("w-full h-full", className)}
         viewBox="0 0 696 316"
         fill="none"
       >
