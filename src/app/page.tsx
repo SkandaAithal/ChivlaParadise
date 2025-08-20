@@ -191,7 +191,7 @@ export default function Home() {
               the ocean, and our Standard Room, a cozy retreat with all the
               comforts you need for a peaceful stay.
             </p>
-            <Scroller>
+            <Scroller onHoverStop>
               {PROPERTY_IMAGES.map((image) => (
                 <Image
                   src={image}
@@ -223,7 +223,7 @@ export default function Home() {
               ingredients, and are happy to cater to different dietary
               requirements.
             </p>
-            <Scroller direction="row" move="right">
+            <Scroller onHoverStop direction="row" move="right">
               {RESTAURANT_IMAGES.map((image) => (
                 <Image
                   src={image}
