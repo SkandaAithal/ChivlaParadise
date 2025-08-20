@@ -14,7 +14,7 @@ const ContactPage = () => {
       <div className="absolute inset-0 min-h-screen overflow-hidden translate-y-20 md:translate-y-0">
         <FloatingPaths position={0} className="text-green-800" />
       </div>
-      <div className="min-h-screen text-white relative z-20 layout">
+      <div className="min-h-screen text-white relative z-20 layout !pt-28 md:!pt-32">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl lg:text-5xl font-semibold bg-gradient-to-r from-green-900  to-[#009669] bg-clip-text text-transparent drop-shadow-2xl mb-6 text-center">
             Get in Touch

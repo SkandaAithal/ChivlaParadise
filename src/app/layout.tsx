@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { ToastContainer } from "react-toastify";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={`${raleway.variable} antialiased`}>
         <Header />
         {children}
+        <ToastContainer />
       </body>
     </html>
   );

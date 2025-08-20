@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import React from "react";
-import SwiperComponent from "./SwiperComponent";
+
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
@@ -9,9 +9,10 @@ import { CAROUSEL_IMAGES } from "@/lib/contants";
 import { FloatingPaths } from "./FloatingPaths";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
+import SwiperComponent from "./SwiperComponent";
 
 const HeroBanner = () => {
-  const images = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES];
+  const images = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES];
   const initialSlideIndex = Math.floor(images.length / 2);
   const router = useRouter();
   return (
@@ -71,15 +72,11 @@ const HeroBanner = () => {
           </div>
         </div>
 
-        <div className="flex justify-center w-full mask max-w-5xl mx-auto">
+        <div className="flex justify-center w-full mask max-w-5xl mx-auto min-h-[500px]">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{
-              duration: 1.2,
-              delay: 1.5,
-              ease: "easeOut",
-            }}
+            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
             className="w-full"
           >
             <SwiperComponent
@@ -88,6 +85,8 @@ const HeroBanner = () => {
               spaceBetween={20}
               loop={true}
               initialSlide={initialSlideIndex}
+              observer
+              observeParents
               effect="coverflow"
               coverflowEffect={{
                 rotate: 25,
@@ -110,8 +109,6 @@ const HeroBanner = () => {
                 768: { slidesPerView: 1.8, spaceBetween: 20 },
                 1024: { slidesPerView: 3, spaceBetween: 25 },
               }}
-              className="swiper-smooth fade-in"
-              watchSlidesProgress={false}
             >
               {images.map((image, index) => {
                 return (
@@ -133,8 +130,8 @@ const HeroBanner = () => {
                         alt="carousel image"
                         width={200}
                         height={200}
-                        priority
                         className="h-96 w-full object-cover"
+                        priority={index === initialSlideIndex}
                       />
                     </motion.div>
                   </SwiperSlide>

@@ -2,7 +2,6 @@ import HeroBanner from "@/components/HeroBanner";
 import SplineWrapper from "@/components/SplineWrapper";
 import Image from "next/image";
 import { Wifi } from "lucide-react";
-import PropertySlider from "@/components/PropertySlider";
 import {
   GALLERY_IMAGES,
   PROPERTY_IMAGES,
@@ -192,7 +191,19 @@ export default function Home() {
               the ocean, and our Standard Room, a cozy retreat with all the
               comforts you need for a peaceful stay.
             </p>
-            <PropertySlider images={PROPERTY_IMAGES} />
+            <Scroller>
+              {PROPERTY_IMAGES.map((image) => (
+                <Image
+                  src={image}
+                  alt="Gallery"
+                  key={image}
+                  width={400}
+                  height={400}
+                  priority
+                  className="h-80  w-96 object-cover"
+                />
+              ))}
+            </Scroller>
           </div>
           <div className="mt-8">
             <div className="flex justify-center items-center mb-6 w-fit mx-auto gap-1">
@@ -212,8 +223,19 @@ export default function Home() {
               ingredients, and are happy to cater to different dietary
               requirements.
             </p>
-
-            <PropertySlider images={RESTAURANT_IMAGES} direction="right" />
+            <Scroller direction="row" move="right">
+              {RESTAURANT_IMAGES.map((image) => (
+                <Image
+                  src={image}
+                  alt="Gallery"
+                  key={image}
+                  width={400}
+                  height={400}
+                  priority
+                  className="h-80  w-96 object-cover"
+                />
+              ))}
+            </Scroller>
           </div>
         </div>
       </section>
