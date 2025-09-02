@@ -40,4 +40,4 @@ export const GALLERY_IMAGES = [
 ];
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-export const OFFICIAL_EMAIL = "skandaaithal1@gmail.com";
+export const OFFICIAL_EMAIL = "chivlaparadise@gmail.com";

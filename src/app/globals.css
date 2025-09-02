@@ -122,6 +122,14 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 ::-webkit-scrollbar {
   width: 1px;
 }

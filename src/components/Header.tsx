@@ -4,22 +4,24 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<
-    "about" | "experiences" | "gallery"
+    "retreat" | "about" | "experiences" | "gallery" | "rooms"
   >("about");
   const pathname = usePathname();
+  const router = useRouter();
   const isHomePage = pathname === "/";
 
   const navigationItems = useMemo(
     () => [
+      { title: "Retreat", href: "/#retreat", sectionId: "retreat" as const },
       { title: "Our story", href: "/#about", sectionId: "about" as const },
+      { title: "Stay", href: "/stay" },
       { title: "Gallery", href: "/#gallery", sectionId: "gallery" as const },
-
       {
         title: "Experiences",
         href: "/#experiences",
@@ -87,9 +89,11 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections: Array<typeof activeSection> = [
+        "retreat",
         "about",
         "experiences",
         "gallery",
+        "rooms",
       ];
       const scrollPosition = window.scrollY + 100;
 
@@ -120,6 +124,36 @@ const Header = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSection, pathname, isHomePage]);
 
+  // Smooth scroll to hash targets after cross-page navigation
+  useEffect(() => {
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    if (!hash || hash.length < 2) return;
+
+    const targetId = hash.slice(1);
+    let attempts = 0;
+    const maxAttempts = 30;
+
+    const tryScroll = () => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        const headerEl = document.querySelector("header") as HTMLElement | null;
+        const headerHeight = headerEl?.offsetHeight ?? 0;
+        const y =
+          window.pageYOffset +
+          element.getBoundingClientRect().top -
+          (headerHeight + 8);
+        window.scrollTo({ top: Math.max(y, 0), behavior: "smooth" });
+        return;
+      }
+      if (attempts < maxAttempts) {
+        attempts += 1;
+        requestAnimationFrame(tryScroll);
+      }
+    };
+
+    requestAnimationFrame(tryScroll);
+  }, [pathname]);
+
   useEffect(() => {
     const onResize = () => updateUnderline();
     window.addEventListener("resize", onResize);
@@ -129,8 +163,12 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      const headerEl = document.querySelector("header") as HTMLElement | null;
+      const headerHeight = headerEl?.offsetHeight ?? 0;
+      const targetY =
+        window.pageYOffset + element.getBoundingClientRect().top - headerHeight;
       window.scrollTo({
-        top: element.offsetTop,
+        top: Math.max(targetY, 0),
         behavior: "smooth",
       });
       setIsMobileMenuOpen(false);
@@ -161,9 +199,13 @@ const Header = () => {
           href={item.href}
           aria-current={active ? "page" : undefined}
           onClick={(e) => {
-            if (item.sectionId && isHomePage) {
+            if (item.sectionId) {
               e.preventDefault();
-              scrollToSection(item.sectionId);
+              if (isHomePage) {
+                scrollToSection(item.sectionId);
+              } else {
+                router.push(`/?scrollTo=${item.sectionId}`, { scroll: false });
+              }
             }
           }}
           className={`relative px-0.5 text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 ${
@@ -201,9 +243,13 @@ const Header = () => {
           href={item.href}
           aria-current={active ? "page" : undefined}
           onClick={(e) => {
-            if (item.sectionId && isHomePage) {
+            if (item.sectionId) {
               e.preventDefault();
-              scrollToSection(item.sectionId);
+              if (isHomePage) {
+                scrollToSection(item.sectionId);
+              } else {
+                router.push(`/?scrollTo=${item.sectionId}`, { scroll: false });
+              }
             }
             setIsMobileMenuOpen(false);
           }}

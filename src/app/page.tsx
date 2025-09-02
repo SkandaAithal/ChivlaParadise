@@ -1,16 +1,20 @@
 import HeroBanner from "@/components/HeroBanner";
+import RetreatSection from "@/components/RetreatSection";
 import SplineWrapper from "@/components/SplineWrapper";
 import Image from "next/image";
 import { Wifi } from "lucide-react";
+import ScrollToOnLoad from "@/components/ScrollToOnLoad";
 import {
   GALLERY_IMAGES,
   PROPERTY_IMAGES,
   RESTAURANT_IMAGES,
+  OFFICIAL_EMAIL,
 } from "@/lib/contants";
 import Scroller from "@/components/Scroller";
 import Link from "next/link";
+import { SiGmail } from "react-icons/si";
+import { FaInstagram } from "react-icons/fa";
 
-// Function to calculate relative time
 function getRelativeTime(date: Date): string {
   const now = new Date();
   const diffInMs = now.getTime() - date.getTime();
@@ -31,8 +35,10 @@ function getRelativeTime(date: Date): string {
 
 export default function Home() {
   return (
-    <main className="max-w-[1780px] mx-auto relative min-h-screen">
+    <main className="relative min-h-screen">
+      <ScrollToOnLoad />
       <HeroBanner />
+      <RetreatSection />
       <section id="about" className="min-h-screen flex flex-col lg:flex-row">
         <div className="hidden lg:block lg:sticky lg:top-0 h-80 lg:h-screen w-full lg:w-1/3">
           <Image
@@ -56,12 +62,9 @@ export default function Home() {
               Journey by the Shore
             </h1>
             <p className="text-center text-base sm:text-lg max-w-4xl mx-auto font-semibold">
-              Immersed in the scenic beauty of the humble coast of Malvan,
-              Chivla Paradise is the perfect beach location for your getaway.
-              Cozy guest rooms with side view of Chivla beach allow you to
-              unwind and ensure that your stay is filled with scenic comfort.
-              Our rooms are spacious, our fares are competitive and the service
-              is unparalleled.
+              Discover Chivla Paradise, your coastal getaway by the Malvan
+              shore. Spacious rooms, breathtaking views, and unmatched service
+              create the perfect setting for relaxation.
             </p>
             <p className="text-center text-base sm:text-lg max-w-4xl mx-auto font-semibold mt-4">
               Our team knows that travelling can be exhausting, and will do
@@ -70,8 +73,46 @@ export default function Home() {
               get in touch if there&apos;s anything else we can help you with.
               We look forward to welcoming you soon!
             </p>
-
             <div className="my-8 lg:my-10">
+              <div className="flex  flex-col justify-center items-center">
+                <Image
+                  src="/founder.png"
+                  alt="Inda Khopkar"
+                  height={100}
+                  width={100}
+                  className="rounded-full h-40 object-cover w-40 mb-4"
+                />
+                <h2 className="text-2xl font-semibold">Inda Khopkar</h2>
+                <div className="flex items-center justify-center gap-4 my-4">
+                  <Link
+                    href={`mailto:indakhopkar93@gmail.com`}
+                    className="bg-gradient-to-r from-green-900 to-[#009669] text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 flex items-center gap-2"
+                  >
+                    <SiGmail className="w-5 h-5" />
+                  </Link>
+                  <Link
+                    href="https://www.instagram.com/inda07/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-2 border-[#009669] text-[#009669] px-6 py-2.5 rounded-full font-semibold hover:bg-[#009669] hover:text-white transition-all duration-300 flex items-center gap-2"
+                  >
+                    <FaInstagram className="w-5 h-5" />
+                  </Link>
+                </div>
+              </div>
+              <p className="text-center text-base sm:text-lg max-w-4xl mx-auto font-semibold">
+                I am the founder of Chivla Paradise, a serene beachside retreat
+                in Malvan, where I blend hospitality with healing through
+                immersive wellness experiences. I am an internationally
+                certified NLP Trainer and Life Coach dedicated to helping people
+                unlock their fullest potential. With corporate experience,
+                expertise in personal growth, and a passion for dance and
+                movement therapy, I inspire transformation by guiding
+                individuals to reconnect with their authentic selves.
+              </p>
+            </div>
+
+            <div className="my-8 lg:my-10" id="amenities">
               <h1 className="font-semibold text-3xl md:text-4xl lg:text-5xl bg-gradient-to-r from-green-900  to-[#009669] bg-clip-text text-transparent drop-shadow-2xl mb-6 w-fit mx-auto text-center">
                 Amenities
               </h1>
@@ -183,14 +224,21 @@ export default function Home() {
                 alt="Chivla Paradise"
                 height={200}
                 width={200}
+                className="w-32 md:w-60"
               />
             </div>
 
-            <p className="text-center text-base sm:text-lg max-w-4xl mx-auto font-semibold mb-8">
+            <div className="text-center text-base sm:text-lg max-w-4xl mx-auto font-semibold mb-8">
               Choose between our Sea View Room, offering breathtaking vistas of
               the ocean, and our Standard Room, a cozy retreat with all the
-              comforts you need for a peaceful stay.
-            </p>
+              comforts you need for a peaceful stay.{" "}
+              <Link
+                href="/stay"
+                className="text-blue-600 underline underline-offset-4"
+              >
+                View Rooms
+              </Link>
+            </div>
             <Scroller onHoverStop>
               {PROPERTY_IMAGES.map((image) => (
                 <Image
@@ -200,7 +248,7 @@ export default function Home() {
                   width={400}
                   height={400}
                   priority
-                  className="h-80  w-96 object-cover"
+                  className="h-80 w-96 object-cover"
                 />
               ))}
             </Scroller>
@@ -212,6 +260,7 @@ export default function Home() {
                 alt="Chivla Paradise"
                 height={200}
                 width={200}
+                className="w-32 md:w-60"
               />
               <h1 className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl bg-gradient-to-r from-green-900  to-[#009669] bg-clip-text text-transparent drop-shadow-2xl mb-6 w-fit mx-auto text-center translate-y-5">
                 Restaurant
