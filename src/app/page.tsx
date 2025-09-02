@@ -8,7 +8,6 @@ import {
   GALLERY_IMAGES,
   PROPERTY_IMAGES,
   RESTAURANT_IMAGES,
-  OFFICIAL_EMAIL,
 } from "@/lib/contants";
 import Scroller from "@/components/Scroller";
 import Link from "next/link";

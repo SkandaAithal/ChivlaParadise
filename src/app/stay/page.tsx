@@ -9,21 +9,23 @@ import type { Swiper as SwiperType } from "swiper";
 import { PROPERTY_IMAGES } from "@/lib/contants";
 import { Button } from "@/components/ui/button";
 import { Autoplay } from "swiper/modules";
-
 const StayPage = () => {
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
   const swiperRef = React.useRef<SwiperType | null>(null);
-  const images = [
-    ...PROPERTY_IMAGES,
-    "/restaurant/restaurant-1.jpg",
-    "/restaurant/restaurant-2.jpg",
-  ];
+  const images = React.useMemo(
+    () => [
+      ...PROPERTY_IMAGES,
+      "/restaurant/restaurant-1.jpg",
+      "/restaurant/restaurant-2.jpg",
+    ],
+    []
+  );
   const visibleIndices = React.useMemo(() => {
     const total = images.length;
     if (total <= 5) return images.map((_, i) => i);
     const offsets = [-2, -1, 0, 1, 2];
     return offsets.map((offset) => (activeIndex + offset + total) % total);
-  }, [activeIndex]);
+  }, [activeIndex, images.length]);
 
   return (
     <main className="relative min-h-screen">
@@ -58,11 +60,13 @@ const StayPage = () => {
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
                 setActiveIndex(
-                  (swiper as any).realIndex ?? swiper.activeIndex ?? 0
+                  (swiper as SwiperType).realIndex ?? swiper.activeIndex ?? 0
                 );
               }}
               onSlideChange={(swiper) =>
-                setActiveIndex((swiper as any).realIndex ?? swiper.activeIndex)
+                setActiveIndex(
+                  (swiper as SwiperType).realIndex ?? swiper.activeIndex
+                )
               }
               className="mask"
             >

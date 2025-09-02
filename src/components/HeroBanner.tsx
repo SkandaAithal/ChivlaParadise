@@ -114,7 +114,7 @@ const HeroBanner = () => {
                     Contact us
                   </h3>
                   <p className="text-gray-600 text-xs lg:text-sm">
-                    We'd love to help
+                    We&apos;d love to help
                   </p>
                 </div>
               </Link>

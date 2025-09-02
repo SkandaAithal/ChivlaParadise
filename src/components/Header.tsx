@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
@@ -52,7 +58,7 @@ const Header = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const getActiveKey = () => {
+  const getActiveKey = useCallback(() => {
     for (const item of navigationItems) {
       if (isHomePage && item.sectionId) {
         if (activeSection === item.sectionId) return item.title;
@@ -61,9 +67,9 @@ const Header = () => {
       }
     }
     return navigationItems[0]?.title ?? "";
-  };
+  }, [navigationItems, isHomePage, activeSection, pathname]);
 
-  const updateUnderline = () => {
+  const updateUnderline = useCallback(() => {
     const key = getActiveKey();
     const el = itemRefs.current[key];
     const container = desktopNavRef.current;
@@ -84,7 +90,7 @@ const Header = () => {
       }
       return prev;
     });
-  };
+  }, [getActiveKey]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -121,8 +127,7 @@ const Header = () => {
   useEffect(() => {
     const raf = requestAnimationFrame(updateUnderline);
     return () => cancelAnimationFrame(raf);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSection, pathname, isHomePage]);
+  }, [activeSection, pathname, isHomePage, updateUnderline]);
 
   // Smooth scroll to hash targets after cross-page navigation
   useEffect(() => {
@@ -158,7 +163,7 @@ const Header = () => {
     const onResize = () => updateUnderline();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, []);
+  }, [updateUnderline]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
