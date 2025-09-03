@@ -1,6 +1,5 @@
 import HeroBanner from "@/components/HeroBanner";
 import RetreatSection from "@/components/RetreatSection";
-import SplineWrapper from "@/components/SplineWrapper";
 import Image from "next/image";
 import { Wifi } from "lucide-react";
 import ScrollToOnLoad from "@/components/ScrollToOnLoad";
@@ -288,12 +287,7 @@ export default function Home() {
         </div>
       </section>
       <section className="relative" id="gallery">
-        <SplineWrapper
-          scene="https://prod.spline.design/KBjsrR66V17nm0hW/scene.splinecode"
-          className="md:!h-[1000px] !h-[600px]"
-        />
-
-        <div className="layout pointer-events-none absolute inset-0 z-10 overflow-hidden">
+        <div className="layout overflow-hidden">
           <h1 className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl bg-gradient-to-r from-green-900  to-[#009669] bg-clip-text text-transparent drop-shadow-2xl mb-4 sm:mb-6 w-fit mx-auto text-center px-4">
             Our Gallery
           </h1>

@@ -1,13 +1,27 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { GrainGradient } from "@paper-design/shaders-react";
 
 const RetreatSection = () => {
   return (
-    <section
-      id="retreat"
-      className="bg-gradient-to-b from-white to-emerald-50 py-16 px-4"
-    >
+    <section id="retreat" className="py-16 px-4 relative">
+      <div className="absolute inset-0  min-h-screen -z-10">
+        <GrainGradient
+          style={{ height: "100%", width: "100%" }}
+          colorBack="hsl(0, 0%, 100%)"
+          softness={0.8}
+          intensity={0.4}
+          noise={0}
+          shape="corners"
+          offsetX={0}
+          offsetY={0}
+          scale={1}
+          rotation={0}
+          speed={1}
+          colors={["#fff3e8", "#faffaf", "#92ffe9"]}
+        />
+      </div>
       <div className="max-w-4xl mx-auto">
         <h2 className="font-semibold text-3xl md:text-4xl lg:text-5xl bg-gradient-to-r from-green-900 to-[#009669] bg-clip-text text-transparent drop-shadow-2xl mb-6">
           Monsoon Magic Meets Inner Healing: A Beachside Retreat in Malvan
